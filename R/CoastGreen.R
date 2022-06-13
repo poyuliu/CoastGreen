@@ -11,6 +11,7 @@
 #' @return cimg format array
 #' @export
 pixeliz <- function(imgfile,rf=0.5,rp=10,rW=NULL,rH=NULL,resize.out=FALSE,plot.px=FALSE){
+  require(imager)
   x <- load.image(imgfile)
   rf=rf #rescale
   if(is.null(rW)){
@@ -41,8 +42,16 @@ pixeliz <- function(imgfile,rf=0.5,rp=10,rW=NULL,rH=NULL,resize.out=FALSE,plot.p
 }
 
 #' Extract pixellated colors
+#'
+#' Extract representative colors from pixellated images
+#' @param img cimg array object
+#' @param rW Width of pixellated image.
+#' @param rH Height of pixellated image.
+#' @param rp Square of rp pixels of the pixellated image.
+#' @return minimized cimg format array
 #' @export
 repix <- function(img,rW,rH,rp){
+  require(imager)
   zx=seq(1,rW,rp)
   zy=seq(1,rH,rp)
 
@@ -54,8 +63,13 @@ repix <- function(img,rW,rH,rp){
 }
 
 #' Extract pixellated green value/hex color code in an image
+#'
+#' @param img cimg array object
+#' @param output "Garea", coveragre (%) of green area in a picture. "HEX", hex color code of green area.
+#' @param plot.green logical, plot green area only.
 #' @export
 Gscore <- function(img,output=c("Garea","HEX"),plot.green=FALSE){
+  require(imager)
   y <- img
   if(all(output==c("Garea","HEX"))) output="Garea"
   yidxB <- which(y[,,,2] < y[,,,3] ,arr.ind = T)

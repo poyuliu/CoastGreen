@@ -6,6 +6,18 @@
 \usage{
 repix(img, rW, rH, rp)
 }
+\arguments{
+\item{img}{cimg array object}
+
+\item{rW}{Width of pixellated image.}
+
+\item{rH}{Height of pixellated image.}
+
+\item{rp}{Square of rp pixels of the pixellated image.}
+}
+\value{
+minimized cimg format array
+}
 \description{
-Extract pixellated colors
+Extract representative colors from pixellated images
 }

@@ -6,6 +6,13 @@
 \usage{
 Gscore(img, output = c("Garea", "HEX"), plot.green = FALSE)
 }
+\arguments{
+\item{img}{cimg array object}
+
+\item{output}{"Garea", coveragre (%) of green area in a picture. "HEX", hex color code of green area.}
+
+\item{plot.green}{logical, plot green area only.}
+}
 \description{
 Extract pixellated green value/hex color code in an image
 }

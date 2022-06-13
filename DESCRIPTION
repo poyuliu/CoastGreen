@@ -1,6 +1,6 @@
 Package: CoastGreen
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Extract green area from pictures of coast in PengHu
 Version: 1.0.0
 Author: Po-Yu Liu, Grace Yu
 Maintainer: Po-Yu Liu <poyu.liu@gmail.com>
