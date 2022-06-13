@@ -40,6 +40,8 @@ pixeliz <- function(imgfile,rf=0.5,rp=10,rW=NULL,rH=NULL,resize.out=FALSE,plot.p
   } else invisible(return(xx))
 }
 
+#' Extract pixellated colors
+#' @export
 repix <- function(img,rW,rH,rp){
   zx=seq(1,rW,rp)
   zy=seq(1,rH,rp)
@@ -51,6 +53,8 @@ repix <- function(img,rW,rH,rp){
   return(zz)
 }
 
+#' Extract pixellated green value/hex color code in an image
+#' @export
 Gscore <- function(img,output=c("Garea","HEX"),plot.green=FALSE){
   y <- img
   if(all(output==c("Garea","HEX"))) output="Garea"
