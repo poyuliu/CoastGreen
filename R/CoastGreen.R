@@ -107,7 +107,7 @@ Gscore <- function(img,output=c("Garea","HEX"),plot.green=FALSE){
 #' @param output "Barea", coveragre (%) of blue area in a picture. "HEX", hex color code of blue area.
 #' @param plot.blue logical, plot blue area only.
 #' @export
-Gscore <- function(img,output=c("Barea","HEX"),plot.blue=FALSE){
+Bscore <- function(img,output=c("Barea","HEX"),plot.blue=FALSE){
   require(imager)
   y <- img
   if(all(output==c("Barea","HEX"))) output="Barea"
