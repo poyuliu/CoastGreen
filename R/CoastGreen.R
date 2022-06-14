@@ -100,3 +100,42 @@ Gscore <- function(img,output=c("Garea","HEX"),plot.green=FALSE){
     invisible((list(Grgb,y)))
   }
 }
+
+#' Extract pixellated blue value/hex color code in an image
+#'
+#' @param img cimg array object
+#' @param output "Barea", coveragre (%) of blue area in a picture. "HEX", hex color code of blue area.
+#' @param plot.blue logical, plot blue area only.
+#' @export
+Gscore <- function(img,output=c("Barea","HEX"),plot.blue=FALSE){
+  require(imager)
+  y <- img
+  if(all(output==c("Barea","HEX"))) output="Barea"
+  yidxB <- which(y[,,,2] < y[,,,3] ,arr.ind = T)
+  yidxR <- which(y[,,,2] < y[,,,1] ,arr.ind = T)
+  yidx <- rbind(yidxB,yidxR)
+  for(i in 1:nrow(yidx)) y[yidx[i,1],yidx[i,2],,] <- NA
+  meanR <- mean(y[,,,1],na.rm = T)
+  meanG <- mean(y[,,,2],na.rm = T)
+  meanB <- mean(y[,,,3],na.rm = T)
+  Grgb <- rgb(meanR,meanG,meanB)
+  allarea <- y[,,,1]+y[,,,2]+y[,,,3]
+  Barea <- sum(!is.na(allarea))/(dim(allarea)[1]*dim(allarea)[2])
+  if(output=="Barea"){
+    if(isTRUE(plot.blue)) {
+      plot(y,xlim=c(1,dim(img)[1]),ylim=c(dim(img)[2],1),axes = F)
+      print(Barea)
+    } else if(!isTRUE(plot.blue)){
+      print(Barea)
+    }
+    invisible((list(Barea,y)))
+  } else if(output=="HEX"){
+    if(isTRUE(plot.blue)) {
+      plot(y,xlim=c(1,dim(img)[1]),ylim=c(dim(img)[2],1),axes = F)
+      print(Grgb)
+    } else if(!isTRUE(plot.blue)){
+      print(Grgb)
+    }
+    invisible((list(Grgb,y)))
+  }
+}
