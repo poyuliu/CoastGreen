@@ -111,14 +111,14 @@ Bscore <- function(img,output=c("Barea","HEX"),plot.blue=FALSE){
   require(imager)
   y <- img
   if(all(output==c("Barea","HEX"))) output="Barea"
-  yidxB <- which(y[,,,2] < y[,,,3] ,arr.ind = T)
-  yidxR <- which(y[,,,2] < y[,,,1] ,arr.ind = T)
+  yidxG <- which(y[,,,3] < y[,,,2] ,arr.ind = T)
+  yidxR <- which(y[,,,3] < y[,,,1] ,arr.ind = T)
   yidx <- rbind(yidxB,yidxR)
   for(i in 1:nrow(yidx)) y[yidx[i,1],yidx[i,2],,] <- NA
   meanR <- mean(y[,,,1],na.rm = T)
   meanG <- mean(y[,,,2],na.rm = T)
   meanB <- mean(y[,,,3],na.rm = T)
-  Grgb <- rgb(meanR,meanG,meanB)
+  Brgb <- rgb(meanR,meanG,meanB)
   allarea <- y[,,,1]+y[,,,2]+y[,,,3]
   Barea <- sum(!is.na(allarea))/(dim(allarea)[1]*dim(allarea)[2])
   if(output=="Barea"){
@@ -132,10 +132,10 @@ Bscore <- function(img,output=c("Barea","HEX"),plot.blue=FALSE){
   } else if(output=="HEX"){
     if(isTRUE(plot.blue)) {
       plot(y,xlim=c(1,dim(img)[1]),ylim=c(dim(img)[2],1),axes = F)
-      print(Grgb)
+      print(Brgb)
     } else if(!isTRUE(plot.blue)){
-      print(Grgb)
+      print(Brgb)
     }
-    invisible((list(Grgb,y)))
+    invisible((list(Brgb,y)))
   }
 }
