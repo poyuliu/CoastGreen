@@ -113,7 +113,7 @@ Bscore <- function(img,output=c("Barea","HEX"),plot.blue=FALSE){
   if(all(output==c("Barea","HEX"))) output="Barea"
   yidxG <- which(y[,,,3] < y[,,,2] ,arr.ind = T)
   yidxR <- which(y[,,,3] < y[,,,1] ,arr.ind = T)
-  yidx <- rbind(yidxB,yidxR)
+  yidx <- rbind(yidxG,yidxR)
   for(i in 1:nrow(yidx)) y[yidx[i,1],yidx[i,2],,] <- NA
   meanR <- mean(y[,,,1],na.rm = T)
   meanG <- mean(y[,,,2],na.rm = T)
