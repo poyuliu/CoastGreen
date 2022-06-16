@@ -65,13 +65,11 @@ repix <- function(img,rW,rH,rp){
 #' Extract pixellated green value/hex color code in an image
 #'
 #' @param img cimg array object
-#' @param output "Garea", coveragre (%) of green area in a picture. "HEX", hex color code of green area.
 #' @param plot.green logical, plot green area only.
 #' @export
-Gscore <- function(img,output=c("Garea","HEX"),plot.green=FALSE){
+Gscore <- function(img,plot.green=FALSE){
   require(imager)
   y <- img
-  if(all(output==c("Garea","HEX"))) output="Garea"
   yidxB <- which(y[,,,2] < y[,,,3] ,arr.ind = T)
   yidxR <- which(y[,,,2] < y[,,,1] ,arr.ind = T)
   yidx <- rbind(yidxB,yidxR)
@@ -82,35 +80,18 @@ Gscore <- function(img,output=c("Garea","HEX"),plot.green=FALSE){
   Grgb <- rgb(meanR,meanG,meanB)
   allarea <- y[,,,1]+y[,,,2]+y[,,,3]
   Garea <- sum(!is.na(allarea))/(dim(allarea)[1]*dim(allarea)[2])
-  if(output=="Garea"){
-    if(isTRUE(plot.green)) {
-      plot(y,xlim=c(1,dim(img)[1]),ylim=c(dim(img)[2],1),axes = F)
-      print(Garea)
-    } else if(!isTRUE(plot.green)){
-      print(Garea)
-    }
-    invisible((list(Garea,y)))
-  } else if(output=="HEX"){
-    if(isTRUE(plot.green)) {
-      plot(y,xlim=c(1,dim(img)[1]),ylim=c(dim(img)[2],1),axes = F)
-      print(Grgb)
-    } else if(!isTRUE(plot.green)){
-      print(Grgb)
-    }
-    invisible((list(Grgb,y)))
-  }
+    if(isTRUE(plot.green)) plot(y,xlim=c(1,dim(img)[1]),ylim=c(dim(img)[2],1),axes = F)
+  invisible((list(Garea,Grgb,y)))
 }
 
 #' Extract pixellated blue value/hex color code in an image
 #'
 #' @param img cimg array object
-#' @param output "Barea", coveragre (%) of blue area in a picture. "HEX", hex color code of blue area.
 #' @param plot.blue logical, plot blue area only.
 #' @export
-Bscore <- function(img,output=c("Barea","HEX"),plot.blue=FALSE){
+Bscore <- function(img,plot.blue=FALSE){
   require(imager)
   y <- img
-  if(all(output==c("Barea","HEX"))) output="Barea"
   yidxG <- which(y[,,,3] < y[,,,2] ,arr.ind = T)
   yidxR <- which(y[,,,3] < y[,,,1] ,arr.ind = T)
   yidx <- rbind(yidxG,yidxR)
@@ -121,21 +102,6 @@ Bscore <- function(img,output=c("Barea","HEX"),plot.blue=FALSE){
   Brgb <- rgb(meanR,meanG,meanB)
   allarea <- y[,,,1]+y[,,,2]+y[,,,3]
   Barea <- sum(!is.na(allarea))/(dim(allarea)[1]*dim(allarea)[2])
-  if(output=="Barea"){
-    if(isTRUE(plot.blue)) {
-      plot(y,xlim=c(1,dim(img)[1]),ylim=c(dim(img)[2],1),axes = F)
-      print(Barea)
-    } else if(!isTRUE(plot.blue)){
-      print(Barea)
-    }
-    invisible((list(Barea,y)))
-  } else if(output=="HEX"){
-    if(isTRUE(plot.blue)) {
-      plot(y,xlim=c(1,dim(img)[1]),ylim=c(dim(img)[2],1),axes = F)
-      print(Brgb)
-    } else if(!isTRUE(plot.blue)){
-      print(Brgb)
-    }
-    invisible((list(Brgb,y)))
-  }
+    if(isTRUE(plot.blue)) plot(y,xlim=c(1,dim(img)[1]),ylim=c(dim(img)[2],1),axes = F)
+  invisible((list(Barea,Brgb,y)))
 }
